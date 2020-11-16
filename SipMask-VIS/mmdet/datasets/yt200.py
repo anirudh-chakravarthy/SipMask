@@ -298,6 +298,7 @@ class YT200Dataset(CustomDataset):
               if i != frame_id and ref_idx in self.img_ids and (instance_matrix[instances, i] > 0).any():
                   valid_samples.append(ref_idx)
         elif self.sampler == "adjacent":
+            valid_samples = []
             sample_range = list(sample_range)
             sample_range.sort(key=lambda i: abs(i-frame_id))
             for i in sample_range:
