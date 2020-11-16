@@ -55,8 +55,8 @@ test_cfg = dict(
     nms=dict(type='nms', iou_thr=0.5),
     max_per_img=10)
 # dataset settings
-dataset_type = 'YTVOSDataset'
-data_root = './data/YouTubeVIS/'
+dataset_type = 'YT200Dataset'
+data_root = '/n/pfister_lab2/Lab/vcg_natural/YouTop200/release/'
 img_norm_cfg = dict(
     mean=[102.9801, 115.9465, 122.7717], std=[1.0, 1.0, 1.0], to_rgb=False)
 data = dict(
@@ -64,8 +64,8 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/train.json',
-        img_prefix=data_root + 'train/JPEGImages',
+        ann_file=data_root + 'info/video.json',
+        img_prefix=data_root + 'JPEGImages',
         img_scale=[(649, 360), (960, 480)],
         img_norm_cfg=img_norm_cfg,
         size_divisor=32,
@@ -76,8 +76,8 @@ data = dict(
         with_track=True),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/valid.json',
-        img_prefix=data_root + 'valid/JPEGImages',
+        ann_file=data_root + 'info/video.json',
+        img_prefix=data_root + 'JPEGImages',
         img_scale=(640, 360),
         img_norm_cfg=img_norm_cfg,
         size_divisor=32,
@@ -87,8 +87,8 @@ data = dict(
         with_label=True),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/valid.json',
-        img_prefix=data_root + 'valid/JPEGImages',
+        ann_file=data_root + 'info/video.json',
+        img_prefix=data_root + 'JPEGImages',
         img_scale=(640, 360),
         img_norm_cfg=img_norm_cfg,
         size_divisor=32,
@@ -123,10 +123,10 @@ log_config = dict(
 # yapf:enable
 # runtime settings
 total_epochs = 12
-device_ids = range(8)
+device_ids = range(4)
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = './work_dirs/sipmask_r50_fpn_ms_1x'
-load_from = './../SipMask-mmdetection/work_dirs/sipmask_r50_caffe_ms_2x.pth'
+work_dir = './work_dirs/sipmask_r50_fpn_ms_1x_youtop'
+load_from = './work_dirs/vis_sipmask_ms_1x_final.pth'
 resume_from = None
 workflow = [('train', 1)]
